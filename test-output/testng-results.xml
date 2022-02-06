@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="28442" started-at="2022-02-06T10:00:23 CST" finished-at="2022-02-06T10:00:52 CST">
+    <groups>
+    </groups>
+    <test name="Default test" duration-ms="28442" started-at="2022-02-06T10:00:23 CST" finished-at="2022-02-06T10:00:52 CST">
+      <class name="variousConcept.CrmTest">
+        <test-method status="PASS" signature="readConfig()[pri:0, instance:variousConcept.CrmTest@6b57696f]" name="readConfig" is-config="true" duration-ms="6" started-at="2022-02-06T10:00:23 CST" finished-at="2022-02-06T10:00:23 CST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- readConfig -->
+        <test-method status="PASS" signature="init()[pri:0, instance:variousConcept.CrmTest@6b57696f]" name="init" is-config="true" duration-ms="2898" started-at="2022-02-06T10:00:23 CST" finished-at="2022-02-06T10:00:26 CST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- init -->
+        <test-method status="PASS" signature="crmTest()[pri:0, instance:variousConcept.CrmTest@6b57696f]" name="crmTest" duration-ms="25505" started-at="2022-02-06T10:00:26 CST" finished-at="2022-02-06T10:00:52 CST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- crmTest -->
+      </class> <!-- variousConcept.CrmTest -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>
