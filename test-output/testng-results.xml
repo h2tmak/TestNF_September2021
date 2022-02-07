@@ -2,20 +2,20 @@
 <testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="28442" started-at="2022-02-06T10:00:23 CST" finished-at="2022-02-06T10:00:52 CST">
+  <suite name="Default suite" duration-ms="14871" started-at="2022-02-06T22:41:37 CST" finished-at="2022-02-06T22:41:52 CST">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="28442" started-at="2022-02-06T10:00:23 CST" finished-at="2022-02-06T10:00:52 CST">
+    <test name="Default test" duration-ms="14871" started-at="2022-02-06T22:41:37 CST" finished-at="2022-02-06T22:41:52 CST">
       <class name="variousConcept.CrmTest">
-        <test-method status="PASS" signature="readConfig()[pri:0, instance:variousConcept.CrmTest@6b57696f]" name="readConfig" is-config="true" duration-ms="6" started-at="2022-02-06T10:00:23 CST" finished-at="2022-02-06T10:00:23 CST">
+        <test-method status="PASS" signature="readConfig()[pri:0, instance:variousConcept.CrmTest@6b57696f]" name="readConfig" is-config="true" duration-ms="7" started-at="2022-02-06T22:41:37 CST" finished-at="2022-02-06T22:41:37 CST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- readConfig -->
-        <test-method status="PASS" signature="init()[pri:0, instance:variousConcept.CrmTest@6b57696f]" name="init" is-config="true" duration-ms="2898" started-at="2022-02-06T10:00:23 CST" finished-at="2022-02-06T10:00:26 CST">
+        <test-method status="PASS" signature="init()[pri:0, instance:variousConcept.CrmTest@6b57696f]" name="init" is-config="true" duration-ms="3131" started-at="2022-02-06T22:41:37 CST" finished-at="2022-02-06T22:41:40 CST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- init -->
-        <test-method status="PASS" signature="crmTest()[pri:0, instance:variousConcept.CrmTest@6b57696f]" name="crmTest" duration-ms="25505" started-at="2022-02-06T10:00:26 CST" finished-at="2022-02-06T10:00:52 CST">
+        <test-method status="PASS" signature="crmTest()[pri:0, instance:variousConcept.CrmTest@6b57696f]" name="crmTest" duration-ms="11704" started-at="2022-02-06T22:41:40 CST" finished-at="2022-02-06T22:41:52 CST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- crmTest -->

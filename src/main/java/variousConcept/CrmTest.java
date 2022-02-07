@@ -7,7 +7,6 @@ import java.util.Properties;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -24,18 +23,19 @@ public class CrmTest {
 	WebDriver driver;
 	String browser;
 	String url;
+	int extentionNumber;
+
 	@BeforeClass
 	public void readConfig() {
 		try {
-			InputStream file=new FileInputStream("src\\main\\java\\config\\config.properties");
-			Properties prop=new Properties();
+			InputStream file = new FileInputStream("src\\main\\java\\config\\config.properties");
+			Properties prop = new Properties();
 			prop.load(file);
-			browser=prop.getProperty("browser");
-			System.out.println("Browser used :"+browser);
-			url=prop.getProperty("url");
-			
-			
-		}catch(IOException e) {
+			browser = prop.getProperty("browser");
+			System.out.println("Browser used :" + browser);
+			url = prop.getProperty("url");
+
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -58,10 +58,9 @@ public class CrmTest {
 	By zipLocator = By.xpath("//input[@id='zip']");
 	By countryDropdownLocator = By.xpath("//select[@id='country']");
 	By saveButtonLocator = By.xpath("//button[@id='submit']");
-	By listCustomersLocator= By.xpath("//a[text()='List Customers']");
-	By searchOptionLocator=By.xpath("//input[@id='foo_filter']");
-	By colLocator=By.xpath("//div[@id='page-wrapper']/descendant::td[3]");
-	
+	By listCustomersLocator = By.xpath("//a[text()='List Customers']");
+	By searchOptionLocator = By.xpath("//input[@id='foo_filter']");
+	By colLocator = By.xpath("//div[@id='page-wrapper']/descendant::td[3]");
 
 	// Login data
 	String userName = "demo@techfios.com";
@@ -76,30 +75,28 @@ public class CrmTest {
 	String city = "Dhaka";
 	String state = "Nebraska";
 	String zip = "24501";
-	String countryName = "Switzerland";
-	
+	String countryName = "Sudan";
+
 	@BeforeMethod
 	public void init() {
 		// Launch Browser
-		if(browser.equalsIgnoreCase("chrome")) {
+		if (browser.equalsIgnoreCase("chrome")) {
 			System.setProperty("webdriver.chrome.driver", "driver/chromedriver.exe");
 			driver = new ChromeDriver();
-		}else if(browser.equalsIgnoreCase("firefox")){
+		} else if (browser.equalsIgnoreCase("firefox")) {
 			System.setProperty("webdriver.gecko.driver", "driver\\geckodriver.exe");
 			driver = new FirefoxDriver();
-		}else {
+		} else {
 			System.out.println("select chrome or firefox");
 		}
 
-	
-		
-		
 		driver.get(url);
 		driver.manage().window().maximize();
 		driver.manage().deleteAllCookies();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
 	}
+
 	@Test
 	public void crmTest() throws InterruptedException {
 		driver.findElement(userNameLocator).sendKeys(userName);
@@ -107,66 +104,78 @@ public class CrmTest {
 		driver.findElement(loginLocator).click();
 
 		// Validation of Dashboard page
-		Thread.sleep(5000);
+
+		waitForElement(driver, 5, dashboardLocator);
 		String dashboardText = driver.findElement(dashboardLocator).getText();
 		System.out.println(dashboardText);
-		Assert.assertTrue( driver.findElement(dashboardLocator).isDisplayed(),"Wrong page");
+		Assert.assertTrue(driver.findElement(dashboardLocator).isDisplayed(), "Wrong page");
 
 		driver.findElement(customersLocator).click();
 		driver.findElement(addCustomerLocator).click();
 
 		// Validation of Add contact form
-		//Thread.sleep(5000);
-		
-		waitForElement(driver,5,addContactLocator);
+
+		waitForElement(driver, 5, addContactLocator);
 		String addContactText = driver.findElement(addContactLocator).getText();
 		System.out.println(addContactText);
-		Assert.assertEquals( "Add Contact", addContactText,"Wrong page!!!");
-		
-		//Generate random number
-		Random rand=new Random();
-		int extentionNumber=rand.nextInt(9999);
+		Assert.assertEquals("Add Contact", addContactText, "Wrong page!!!");
 
-		driver.findElement(fullNameLocator).sendKeys(fullName+"_"+extentionNumber);
+		// Generate random number
+		randomGenerator(9999);
+
+		driver.findElement(fullNameLocator).sendKeys(fullName + "_" + extentionNumber);
 
 		// Company name drop down
-		Select sel1 = new Select(driver.findElement(companyDropdownLocator));
-		sel1.selectByVisibleText(companyName);
+		selectFromDropdown(companyDropdownLocator, companyName);
 
-		driver.findElement(emailLocator).sendKeys(extentionNumber+"_"+email);
-		driver.findElement(phoneLocator).sendKeys(phone+extentionNumber);
+		driver.findElement(emailLocator).sendKeys(extentionNumber + "_" + email);
+		driver.findElement(phoneLocator).sendKeys(phone + extentionNumber);
 		driver.findElement(addressLocator).sendKeys(address);
 		driver.findElement(cityLocator).sendKeys(city);
 		driver.findElement(stateLocator).sendKeys(state);
 		driver.findElement(zipLocator).sendKeys(zip);
-		Thread.sleep(5000);
+
+		waitForElement(driver, 5, countryDropdownLocator);
 
 		// Country name drop down
-		Select sel2 = new Select(driver.findElement(countryDropdownLocator));
-		sel2.selectByVisibleText(countryName);
-		
-		
+		selectFromDropdown(countryDropdownLocator, countryName);
+
 		driver.findElement(saveButtonLocator).click();
-		
-		Thread.sleep(5000);
-		driver.findElement(listCustomersLocator).click();
-		Thread.sleep(3000);
-		String validationText=fullName+"_"+extentionNumber;
-		driver.findElement(searchOptionLocator).sendKeys(validationText);
-		String customerNameText=driver.findElement(colLocator).getText();
-		Assert.assertEquals(validationText,customerNameText,"Account not created!!!");
-		
+
+		driver.navigate().refresh();
+
+		waitForElement(driver, 20, listCustomersLocator);
+		try {
+			driver.findElement(listCustomersLocator).click();
+
+			String validationText = fullName + "_" + extentionNumber;
+			waitForElement(driver, 25, searchOptionLocator);
+			driver.findElement(searchOptionLocator).sendKeys(validationText);
+			String customerNameText = driver.findElement(colLocator).getText();
+			Assert.assertEquals(validationText, customerNameText, "Account not created!!!");
+
+		} catch (Exception ep) {
+			ep.printStackTrace();
+		}
 
 	}
-	private void waitForElement(WebDriver driver, int timeInSeconds, By locator) {
-		WebDriverWait wait=new WebDriverWait(driver,timeInSeconds);
+
+	private void selectFromDropdown(By dropdownLocator, String visibleText) {
+		Select sel1 = new Select(driver.findElement(dropdownLocator));
+		sel1.selectByVisibleText(visibleText);
+
+	}
+
+	public void waitForElement(WebDriver driver, int timeInSeconds, By locator) {
+		WebDriverWait wait = new WebDriverWait(driver, timeInSeconds);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
-		
+
 	}
 
-		
-	
-	
+	public void randomGenerator(int bound) {
+		Random rand = new Random();
+		extentionNumber = rand.nextInt(bound);
 
+	}
 
 }
